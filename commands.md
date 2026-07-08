@@ -246,3 +246,44 @@ gcloud run deploy rag-api \
 
 
 ```
+
+
+
+# Admin roles for infrastructure creation
+gcloud projects add-iam-policy-binding enterprise-project-499014
+ \
+    --member="user:rubybriggs07@gmail.com" \
+    --role="roles/eventarc.admin"
+
+gcloud projects add-iam-policy-binding enterprise-project-499014 \
+    --member="user:rubybriggs07@gmail.com" \
+    --role="roles/redis.admin"
+
+gcloud projects add-iam-policy-binding enterprise-project-499014 \
+    --member="user:rubybriggs07@gmail.com" \
+    --role="roles/iam.serviceAccountAdmin"
+
+gcloud projects add-iam-policy-binding enterprise-project-499014 \
+    --member="user:rubybriggs07@gmail.com" \
+    --role="roles/resourcemanager.projectIamAdmin"
+
+gcloud projects add-iam-policy-binding enterprise-project-499014 \
+    --member="user:rubybriggs07@gmail.com" \
+    --role="roles/run.admin"
+
+gcloud projects add-iam-policy-binding enterprise-project-499014 \
+    --member="user:rubybriggs07@gmail.com" \
+    --role="roles/compute.networkAdmin"
+
+gcloud projects add-iam-policy-binding enterprise-project-499014 \
+    --member="user:rubybriggs07@gmail.com" \
+    --role="roles/vpcaccess.admin"
+
+# Allow Pub/Sub to publish GCS events (required for Eventarc)
+gcloud projects add-iam-policy-binding enterprise-project-499014
+ \
+    --member="serviceAccount:service-$(gcloud projects describe enterprise-project-499014 --format='value(projectNumber)')@gs-project-accounts.iam.gserviceaccount.com" \
+    --role="roles/pubsub.publisher"
+
+------
+gcloud builds submit --config cloudbuild.yaml .
